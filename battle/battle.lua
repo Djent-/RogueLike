@@ -24,6 +24,7 @@ function Battle:new()
 	battle.newTile = nil
 	battle.newAttackDmg = nil
 	battle.currentAttack = nil
+	battle.canCrit = true
 	battle.critChance = nil
 
 	battle.guiElements = {
@@ -193,9 +194,10 @@ function Battle:new()
 						battle.critChance = math.random(0,5)
 					end
 					print(battle.critChance)
-					if battle.critChance == 5 then
+					if battle.critChance == 5 and battle.canCrit then
 						print("crit!")
 						battle.newAttackDmg = attackee.health - ((attacker.dmg + attacker.attacks[attackUsed].dmg + battle.crit) - attacker.defense)
+						battle.canCrit = false
 					else
 						battle.newAttackDmg = attackee.health - ((attacker.dmg + attacker.attacks[attackUsed].dmg) - attacker.defense)
 					end
