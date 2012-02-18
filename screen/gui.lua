@@ -1,4 +1,5 @@
 require("screen/font")
+require("screen/spritesheet")
 
 gui = {}
 gui.healthBar = love.graphics.newImage("assets/healthbar.png")
@@ -12,6 +13,9 @@ function gui:new(x,y)
 	g.img = love.graphics.newImage("assets/header_gui.png")
 	g.img:setFilter("nearest","nearest")
 	Font:load()
+	g.weaponIcons = Spritesheet:new("weaponIcons.png",16,16)
+	g.weaponX = 0
+	g.weaponY = 0
 
 	function g:update(dt)
 
@@ -25,6 +29,10 @@ function gui:new(x,y)
 			gui:renderGhostBar((480 / 4) - 170 / 2,17, 170)
 			gui:renderHealthBar((480 / 4) - (player.health) / 2,17, player.health)
 		Font:stop()
+
+		--weapon icon
+		love.graphics.drawq(g.weaponIcons.img,g.weaponIcons:getSpriteQuad(g.weaponX * 16,g.weaponY * 16),2,3)
+
 	end
 
 	return g

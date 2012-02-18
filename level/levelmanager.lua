@@ -59,7 +59,7 @@ npcTypes = {
 	},
 	{"counselor chauncey",false,{},1,0,
 		{
-			{"i'm glad your here, there is evil in this land.",
+			{"i'm glad you're here, there is evil in this land.",
 			 "three \"stones of sorrow\" you must retrieve, collect",
 			 "the stones, then your path will be clear."}
 	    }

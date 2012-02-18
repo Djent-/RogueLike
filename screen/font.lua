@@ -10,6 +10,7 @@ Font.letters = {}
 Font.letterSize = 8
 Font.scrollSentance = {}
 Font.scrollView = {}
+
 function Font:load()
 	for i = 1, #Font.strletters do
 		local lttrQ = love.graphics.newQuad(Font.letterSize * (i - 1), 0,Font.letterSize,Font.letterSize,Font.img:getWidth(),Font.img:getHeight())
