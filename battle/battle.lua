@@ -58,10 +58,13 @@ function Battle:new()
 	--funcs
 	function battle:engage(player,sprites,enemyIndex)
 		battle.inbattle = true
+		battle.enemyAttacking = false
 		battle.player = player
 		battle.sprites = sprites
 		battle.enemy = sprites[enemyIndex]
 		battle.enemyIndex = enemyIndex
+		battle.curMen = 0
+		battle.selected = 1
 
 		battle.menus[1][2] = battle.player.attacks
 		battle.menus[2][2] = battle.player.abilities
@@ -214,18 +217,17 @@ function Battle:new()
 
 					if attackee.health <= 0 then
 						battle.timer = 0
-						if battle.enemyAttacking then
-							battle:lose()
-						else
+						if battle.onTurn then
 							battle:win()
+						else
+							battle:lose()
 						end
-					end
-					if attacker.health <= 0 then
+					elseif attacker.health <= 0 then
 						battle.timer = 0
-						if battle.enemyAttacking then
-							battle:lose()
-						else
+						if battle.onTurn then
 							battle:win()
+						else
+							battle:lose()
 						end
 					else
 						battle.timer = 0

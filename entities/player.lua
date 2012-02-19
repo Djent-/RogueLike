@@ -24,7 +24,7 @@ function Player:new(x,y)
 	player.abilities = {abilities.block}
 	player.items = {consumables.healthPotion, consumables.mushroom, consumables.chocCandy}
 
-	player.weapons = {weapons.shortSword}
+	player.weapons = {weapons.shortSword,weapons.karate}
 	player.currentWeapon = player.weapons[1]
 	player.attacks = player.currentWeapon.attacks
 

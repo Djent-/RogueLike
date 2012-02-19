@@ -32,6 +32,9 @@ function World:new()
 
 	function w:update(dt)
 		if not w.battle.inbattle then
+			w.gui:update(w.worlds[w.currentWorld].player,dt)
+		end
+		if not w.battle.inbattle and not w.gui.showInventory and not w.gui.showWeaponWindow then
 			w.worlds[w.currentWorld]:update(w.battle,w.worlds[w.currentWorld],dt)
 		elseif w.battle.inbattle then
 			w.battle:update(dt)
