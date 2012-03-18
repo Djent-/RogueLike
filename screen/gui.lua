@@ -32,8 +32,9 @@ function gui:new(x,y)
 	g.canClose = false
 	g.timer = 0
 	g.useItem = false
+	g.newHealth = nil
 
-	function g:update(player,dt)
+	function g:update(lvl,dt)
 		if love.keyboard.isDown("1") and not g.showWeaponWindow then
 			if g.showWeaponWindow == false then
 				g.invSelect = 1
@@ -60,12 +61,12 @@ function gui:new(x,y)
 			g.prevSelect = g.invSelect
 			g.invSelect = g.invSelect + 1
 			if g.showWeaponWindow then
-				if g.invSelect > #player.weapons then
-					g.invSelect = #player.weapons
+				if g.invSelect > #lvl.player.weapons then
+					g.invSelect = #lvl.player.weapons
 				end
 			elseif g.showInventory then
-				if g.invSelect > #player.items then
-					g.invSelect = #player.items
+				if g.invSelect > #lvl.player.items then
+					g.invSelect = #lvl.player.items
 				end
 			end
 		end
@@ -78,29 +79,33 @@ function gui:new(x,y)
 		end
 		if love.keyboard.isDown("right") and (g.showWeaponWindow or g.showInventory)  then
 			if g.showWeaponWindow then
-				player.currentWeapon = player.weapons[g.invSelect]
-				player.attacks = player.currentWeapon.attacks
+				lvl.player.currentWeapon = lvl.player.weapons[g.invSelect]
+				lvl.player.attacks = lvl.player.currentWeapon.attacks
 				g.weaponX = g.invSelect - 1
 			elseif g.showInventory and not g.showWeaponWindow then
 				g.useItem = true
 			end
 		end
 		if g.useItem and not g.showWeaponWindow and g.showInventory then
-			local item = player.items[g.invSelect]
-			if player.health < player.maxHealth then
-				local newHealth = player.health + item.health
-				if newHealth > player.maxHealth then newHealth = player.maxHealth end
-				if player.health < newHealth then
-					player.health = player.health + 1
-				else
+			local item = lvl.player.items[g.invSelect]
+			if lvl.player.health < lvl.player.maxHealth then
+				if g.newHealth == nil then
+					g.newHealth = lvl.player.health + item.health
+				end
+				if g.newHealth > lvl.player.maxHealth then g.newHealth = lvl.player.maxHealth end
+				if lvl.player.health < g.newHealth then
+					lvl.player.health = lvl.player.health + 1
+				end
+				if lvl.player.health >= g.newHealth or lvl.player.health == lvl.player.maxHealth then
 					print('used potion')
-					player.health = newHealth
-					table.remove(player.items,g.invSelect)
-					print(#player.items)
+					lvl.player.health = g.newHealth
+					table.remove(lvl.player.items,g.invSelect)
+					g.newHealth = nil
 					g.invSelect = 1
 					g.useItem = false
 				end
 			end
+			print(lvl.player.health)
 		end
 
 
@@ -113,34 +118,37 @@ function gui:new(x,y)
 		end
 	end
 
-	function g:draw(player)
+	function g:draw(lvl)
 		--inventory
 		if g.showWeaponWindow then
 			love.graphics.draw(g.invWindow, 20,0)
 			Font:start(2)
 				Font:print("weapons",(g.invX + 20),(g.invX + 10))
 			Font:stop()
-			g.invMenu:renderItemList(player.weapons,(g.invX + 5) * 3,(g.invX + 57),g.invSelect,12,5,5)
+			g.invMenu:renderItemList(lvl.player.weapons,(g.invX + 5) * 3,(g.invX + 57),g.invSelect,12,5,5)
 		elseif g.showInventory then
 			love.graphics.draw(g.invWindow, 20,0)
 			Font:start(2)
 				Font:print("items",(g.invX + 20),(g.invX + 10))
 			Font:stop()
-			g.invMenu:renderItemList(player.items,(g.invX + 5) * 3,(g.invX + 57),g.invSelect,12,5,5)
+			g.invMenu:renderItemList(lvl.player.items,(g.invX + 5) * 3,(g.invX + 57),g.invSelect,12,5,5)
 		end
 
 		love.graphics.draw(g.img,g.x,g.y)
 		Font:start(2)
 			--header
-			Font:print(player.name,(480 / 4) - (Font:getWidth(player.name) / 2),5) 
+			Font:print(lvl.player.name,(480 / 4) - (Font:getWidth(lvl.player.name) / 2),5) 
 			gui:renderGhostBar((480 / 4) - 170 / 2,17, 170)
-			gui:renderHealthBar((480 / 4) - (player.health) / 2,17, player.health)
+			gui:renderHealthBar((480 / 4) - (lvl.player.health) / 2,17, lvl.player.health)
 		Font:stop()
 
 		
 		--weapon icon
 		love.graphics.drawq(g.weaponIcons.img,g.weaponIcons:getSpriteQuad(g.weaponX * 16,g.weaponY * 16),2,3)
-
+		--score
+		Font:start(1)
+			Font:print(string.format("score %d",lvl.player.score),24 * 3,10)
+		Font:stop()
 	end
 
 	return g

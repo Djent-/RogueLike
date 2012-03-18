@@ -15,11 +15,13 @@ function Player:new(x,y)
 	player.y = player.tileSize * player.currentTileY
 	player.canChangeLevel = true
 	player.maxHealth = 170
-	player.health = 170
+	player.health = player.maxHealth
 	player.xp = 0
 	player.level = 1
 	player.name = "sir adam"
 	player.inDialogue = false
+	player.score = 0
+	player.dead = false
 
 	player.abilities = {abilities.block}
 	player.items = {consumables.healthPotion, consumables.mushroom, consumables.chocCandy}

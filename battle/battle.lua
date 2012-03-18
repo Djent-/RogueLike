@@ -24,8 +24,6 @@ function Battle:new()
 	battle.newTile = nil
 	battle.newAttackDmg = nil
 	battle.currentAttack = nil
-	battle.canCrit = true
-	battle.critChance = nil
 
 	battle.guiElements = {
 		{love.graphics.newImage("assets/battlebg.png"),0,0},
@@ -42,11 +40,9 @@ function Battle:new()
 	battle.enemies = Spritesheet:new("enemy.png",37,41)
 	battle.currentEnemyX = 0
 	battle.currentEnemyY = 0
-	battle.crit = 60
 
 	battle.menus = {
 		{"attacks",nil},
-		{"abilities",nil},
 		{"inventory",nil},
 		{"pass",nil},
 	}
@@ -67,8 +63,7 @@ function Battle:new()
 		battle.selected = 1
 
 		battle.menus[1][2] = battle.player.attacks
-		battle.menus[2][2] = battle.player.abilities
-		battle.menus[3][2] = battle.player.items
+		battle.menus[2][2] = battle.player.items
 
 		battle.currentEnemyY = battle.enemy.battleY
 	end
@@ -132,14 +127,11 @@ function Battle:new()
 				if battle.curMen == 1 then
 					battle.onTurn = true
 				elseif battle.curMen == 2 then
-					-- abilities
-				elseif battle.curMen == 3 then
-					-- items
 					if #battle.menus[battle.curMen][2] > 0 then
 						battle.useItem = true
 					end
 				else
-					if battle.selected == 4 then
+					if battle.selected == 3 then
 						battle.enemyAttacking = true
 					else
 						battle.curMen = battle.selected
@@ -193,17 +185,7 @@ function Battle:new()
 			if battle.timer >= 1 then 
 				--make enemy health go down
 				if battle.newAttackDmg == nil then
-					if battle.critChance == nil then
-						battle.critChance = math.random(0,5)
-					end
-					print(battle.critChance)
-					if battle.critChance == 5 and battle.canCrit then
-						print("crit!")
-						battle.newAttackDmg = attackee.health - ((attacker.dmg + attacker.attacks[attackUsed].dmg + battle.crit) - attacker.defense)
-						battle.canCrit = false
-					else
-						battle.newAttackDmg = attackee.health - ((attacker.dmg + attacker.attacks[attackUsed].dmg) - attacker.defense)
-					end
+					battle.newAttackDmg = attackee.health - ((attacker.dmg + attacker.attacks[attackUsed].dmg) - attacker.defense)
 					print("used: " .. attacker.attacks[attackUsed].name)
 				end
 				if attackee.health >= battle.newAttackDmg then   
@@ -213,7 +195,6 @@ function Battle:new()
 
 					battle.curMen = 0
 					battle.selected = 1
-					battle.critChance = nil
 
 					if attackee.health <= 0 then
 						battle.timer = 0
@@ -257,8 +238,6 @@ function Battle:new()
 				battle.player.health = battle.player.health + 1
 			else
 				battle.player.health = newHealth
-				--table.remove(battle.menus[battle.curMen],battle.selected)
-				print(battle.selected)
 				table.remove(battle.player.items,battle.selected)
 				battle.curMen = 0
 				battle.selected = 1
@@ -266,22 +245,6 @@ function Battle:new()
 				battle.enemyAttacking = true
 			end
 		end
-		--[[
-		if item.defense > 0 then
-			battle.player.defense = battle.player.defense + item.defense
-			local newDef = battle.player.defense + item.defense
-			if newDef > 
-
-			if battle.player.defense <= newDef then
-				battle.player.defense = battle.player.defense + 1
-			else
-				battle.player.defense = newDef
-				table.remove(battle.player.items,battle.selected)
-				battle.useItem = false
-				battle.enemyAttacking = true
-			end			
-		end]]
-		
 	end
 
 	function battle:win()
@@ -290,6 +253,9 @@ function Battle:new()
 		battle.newAttackDmg = nil
 		battle.currentAttack = nil
 		battle.gui.render = true
+		if battle.onTurn then
+			battle.player.score = math.random(100,500)
+		end
 
 		battle.enemyAttacking = false
 		battle.onTurn = false
@@ -301,6 +267,9 @@ function Battle:new()
 		battle.currentAttack = nil
 		battle.newAttackDmg = nil
 		battle.gui.render = true
+		if battle.onTurn then
+			battle.player.dead = true
+		end
 
 		battle.enemyAttacking = false
 		battle.onTurn = false

@@ -21,7 +21,7 @@ function love.load()
 end
 
 function love.update(dt)
-	world:update(dt)
+	world:update(lvls,spriteMap,npcTypes,dt)
 end
 
 function love.draw()

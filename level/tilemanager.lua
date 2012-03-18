@@ -1,7 +1,5 @@
 TileManager = {}
 
-
-
 function TileManager:new(x,y)
 	local tm = {}
 	tm.tileSize = 16

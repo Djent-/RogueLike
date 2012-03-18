@@ -31,9 +31,9 @@ lvls = {
 			{w,w,w,w,w,w,w,w,w,w},
 			{w,w,w,r,q,w,w,w,w,w},
 			{w,q,q,w,g,q,q,q,w,w},
-			{w,d,e,q,d,g,g,g,w,w},
-			{w,d,g,g,g,g,g,g,q,w},
-			{q,d,g,g,g,g,g,g,e,w},
+			{w,d,e,q,d,g,g,g,w,r},
+			{w,d,g,g,g,g,g,g,q,q},
+			{q,d,g,g,g,g,g,g,e,g},
 			{g,g,g,g,g,e,q,d,e,w},
 			{w,d,g,g,g,g,g,g,e,w},
 			{w,d,g,g,g,g,g,g,e,w},
@@ -53,8 +53,8 @@ npcTypes = {
 	{"grandelf the graw",false,{},1,0,
 		{
 			{"as you can see, the \"arrow keys\" do most of the",
-			 "work. you can press \"w\" for your weapons, and ",
-			 "press \"e\" for your inventory."},
+			 "work. you can press \"1\" for your weapons, and ",
+			 "press \"2\" for your inventory and \"esc\" to close."},
 		}
 	},
 	{"counselor chauncey",false,{},1,0,
@@ -73,7 +73,7 @@ spriteMap =
 		{
 			{0,0,0,0,0,0,0,0,0},
 			{0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,1,0},
+			{0,0,0,0,0,0,0,0,0},
 			{0,0,0,0,0,0,0,0,0},
 			{0,0,3,0,0,0,0,0,0},
 			{0,0,0,0,0,1,0,0,0},
