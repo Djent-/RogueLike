@@ -28,14 +28,14 @@ function Font:getLetter(lttr)
 end
 
 function Font:start(scale)
-	love.graphics.pop()
 	love.graphics.push()
+	love.graphics.pop()
 	love.graphics.scale(scale,scale)	
 end
 
 function Font:stop()
-	love.graphics.pop()
 	love.graphics.push()
+	love.graphics.pop()
 	love.graphics.scale(3,3)
 end
 
