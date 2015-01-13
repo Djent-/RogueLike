@@ -30,7 +30,7 @@ end
 function Font:start(scale)
 	love.graphics.push()
 	love.graphics.pop()
-	love.graphics.scale(scale,scale)	
+	love.graphics.scale(scale,scale)
 end
 
 function Font:stop()
@@ -46,10 +46,10 @@ function Font:print(string,x,y,scale)
 		table.insert(sentance, Font:getLetter(c))
 	end
 	for i = 1, #sentance do
-		love.graphics.drawq(Font.img,sentance[i][2],(i - 1) * Font.letterSize + x, y)
+		love.graphics.draw(Font.img,sentance[i][2],(i - 1) * Font.letterSize + x, y)
 	end
 end
 
 function Font:getWidth(str)
-	return 8 * #str 
+	return 8 * #str
 end

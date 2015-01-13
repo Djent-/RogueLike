@@ -38,7 +38,7 @@ function Level:new()
 	 		for y = 1, #sprites[i] do
 	 			for x = 1, #sprites[i][y] do
 	 				if sprites[i][y][x] == 0 then
-		 				
+
 		 			elseif sprites[i][y][x] > 0 then
 		 				if npcTypes[sprites[i][y][x]][2] == true then
 		 					local enemy = Enemy:new(x,y,npcTypes[sprites[i][y][x]])
@@ -52,12 +52,12 @@ function Level:new()
 	 		end
 	 		table.insert(l.npcs,sn)
 	 		table.insert(l.sprites,ss)
-	 	end 
+	 	end
 	 	for i = 1,#l.sprites do
 	 		table.insert(l.sprites[i],l.player)
 	 	end
  	end
- 	
+
  	function l:update(battle,lvl,dt)
  		for i = 1, #l.sprites[l.currentLevel] do
  			l.sprites[l.currentLevel][i]:update(battle,l.npcs[l.currentLevel],lvl,dt)
@@ -73,7 +73,7 @@ function Level:new()
  		local ss = l.sprites[l.currentLevel]
  		local sn = l.npcs[l.currentLevel]
  		for i = 1, #lvl do
- 			
+
  			if lvl[i].solid then
  				--left
  				if lvl[i].currentTileX == currentX - 1 and lvl[i].currentTileY == currentY then
@@ -128,7 +128,7 @@ function Level:new()
  	function l:draw(sprites)
  		local lvl = l.levels[l.currentLevel]
  		for t = 1, #lvl do
- 			love.graphics.drawq(sprites.img,sprites:getSpriteQuad(lvl[t].currentSpriteX,lvl[t].currentSpriteY),lvl[t].x,lvl[t].y)
+ 			love.graphics.draw(sprites.img,sprites:getSpriteQuad(lvl[t].currentSpriteX,lvl[t].currentSpriteY),lvl[t].x,lvl[t].y)
  		end
  	end
  	function l:drawS(othsprites)

@@ -25,8 +25,8 @@ function love.update(dt)
 end
 
 function love.draw()
-	love.graphics.pop()
 	love.graphics.push()
+	love.graphics.pop()
 	love.graphics.scale(3,3)
 
 	world:draw({sprites,psprites})

@@ -137,14 +137,14 @@ function gui:new(x,y)
 		love.graphics.draw(g.img,g.x,g.y)
 		Font:start(2)
 			--header
-			Font:print(lvl.player.name,(480 / 4) - (Font:getWidth(lvl.player.name) / 2),5) 
+			Font:print(lvl.player.name,(480 / 4) - (Font:getWidth(lvl.player.name) / 2),5)
 			gui:renderGhostBar((480 / 4) - 170 / 2,17, 170)
 			gui:renderHealthBar((480 / 4) - (lvl.player.health) / 2,17, lvl.player.health)
 		Font:stop()
 
-		
+
 		--weapon icon
-		love.graphics.drawq(g.weaponIcons.img,g.weaponIcons:getSpriteQuad(g.weaponX * 16,g.weaponY * 16),2,3)
+		love.graphics.draw(g.weaponIcons.img,g.weaponIcons:getSpriteQuad(g.weaponX * 16,g.weaponY * 16),2,3)
 		--score
 		Font:start(1)
 			Font:print(string.format("score %d",lvl.player.score),24 * 3,10)

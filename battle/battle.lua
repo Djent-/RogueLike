@@ -118,7 +118,7 @@ function Battle:new()
 					end
 				end
 			elseif key == "up" then
-				if battle.selected == 1 then 
+				if battle.selected == 1 then
 					battle.selected = 1
 				else
 					battle.selected = battle.selected - 1
@@ -158,9 +158,9 @@ function Battle:new()
 			Font:stop()
 
 			-- player/enemy
-			love.graphics.drawq(battle.playerWeps.img,battle.playerWeps:getSpriteQuad(battle.currentWepX * 43,battle.currentWepY * 43),40,GAME_HEIGHT - 55)
+			love.graphics.draw(battle.playerWeps.img,battle.playerWeps:getSpriteQuad(battle.currentWepX * 43,battle.currentWepY * 43),40,GAME_HEIGHT - 55)
 			love.graphics.draw(battle.playerimg,0,GAME_HEIGHT - 63)
-			love.graphics.drawq(battle.enemies.img,battle.enemies:getSpriteQuad(battle.currentEnemyX * 37,battle.currentEnemyY * 37),GAME_WIDTH - 60,5)
+			love.graphics.draw(battle.enemies.img,battle.enemies:getSpriteQuad(battle.currentEnemyX * 37,battle.currentEnemyY * 37),GAME_WIDTH - 60,5)
 			--menu
 			if battle.curMen > 0 then
 				battle.gui:renderItemList(battle.menus[battle.curMen][2],WINDOW_WIDTH - 213,WINDOW_HEIGHT - 50,battle.selected,12,5,4)
@@ -182,13 +182,13 @@ function Battle:new()
 				battle.currentEnemyX = 0
 				battle.currentWepX = 0
 			end
-			if battle.timer >= 1 then 
+			if battle.timer >= 1 then
 				--make enemy health go down
 				if battle.newAttackDmg == nil then
 					battle.newAttackDmg = attackee.health - ((attacker.dmg + attacker.attacks[attackUsed].dmg) - attacker.defense)
 					print("used: " .. attacker.attacks[attackUsed].name)
 				end
-				if attackee.health >= battle.newAttackDmg then   
+				if attackee.health >= battle.newAttackDmg then
 					attackee.health = attackee.health - 1
 				else
 					attackee.health = battle.newAttackDmg
@@ -223,7 +223,7 @@ function Battle:new()
 						end
 						battle.onTurn = false
 					end
-				end			
+				end
 			end
 		end
 	end
@@ -275,7 +275,7 @@ function Battle:new()
 		battle.onTurn = false
 		battle.inbattle = false
 	end
-	
+
 	return battle
 end
 

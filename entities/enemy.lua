@@ -26,7 +26,7 @@ function Enemy:new(x,y,enemyType)
 	e.weapons = enemyType[3]
 	e.currentWeapon = e.weapons[1]
 	e.attacks = e.currentWeapon.attacks
-	
+
 	e.defense = 1
 
 	e.x = e.tileSize * e.currentTileX
@@ -41,7 +41,7 @@ function Enemy:new(x,y,enemyType)
 		local strHealth = ""
 		if gui == 0 then
 			for i = 1, e.health / 19 do
-				strHealth = strHealth .. "#"	
+				strHealth = strHealth .. "#"
 			end
 		else
 			for i = 1, e.health / 16 do
@@ -80,7 +80,7 @@ function Enemy:new(x,y,enemyType)
 		end
 		e:moveOnGrid(e.direction)
 	end
-	
+
 	function e:moveRandom(lvl)
 		local direction = math.random(0,3)
 		if direction == 0 and e.y >= 0 then
@@ -117,7 +117,7 @@ function Enemy:new(x,y,enemyType)
 	end
 
 	function e:draw(sprites)
-		love.graphics.drawq(sprites.img,sprites:getSpriteQuad(e.currentSpriteX,e.currentSpriteY * e.tileSize),e.x,e.y)
+		love.graphics.draw(sprites.img,sprites:getSpriteQuad(e.currentSpriteX,e.currentSpriteY * e.tileSize),e.x,e.y)
 	end
 
 	return e

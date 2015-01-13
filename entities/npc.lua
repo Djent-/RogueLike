@@ -61,7 +61,7 @@ function NPC:new(x,y,npcData)
 	end
 
 	function npc:draw(sprites)
-		love.graphics.drawq(sprites.img,sprites:getSpriteQuad(npc.currentSpriteX,npc.currentSpriteY * npc.tileSize),npc.x,npc.y)
+		love.graphics.draw(sprites.img,sprites:getSpriteQuad(npc.currentSpriteX,npc.currentSpriteY * npc.tileSize),npc.x,npc.y)
 		if npc.dialogue.active then
 			npc.dialogue:render()
 		end

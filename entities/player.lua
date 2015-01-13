@@ -40,14 +40,14 @@ function Player:new(x,y)
 	end
 
 	function player:draw(sprites)
-		love.graphics.drawq(sprites.img,sprites:getSpriteQuad(player.currentSpriteX,player.currentSpriteY),player.x,player.y)
+		love.graphics.draw(sprites.img,sprites:getSpriteQuad(player.currentSpriteX,player.currentSpriteY),player.x,player.y)
 	end
 
 	function player:healthToString(size)
 		local strHealth = ""
 		if size == 0 then
 			for i = 1, player.health / 16 do
-				strHealth = strHealth .. "#"	
+				strHealth = strHealth .. "#"
 			end
 		else
 			for i = 1, player.health / 19 do
@@ -162,7 +162,7 @@ function Player:new(x,y)
 		elseif player.currentTileX == -1 then
 			player.currentTileX = 9
 			player.newPos = player.currentTileX * 16
-		
+
 			player.x = GAME_WIDTH
 			lvl.currentLevel = lvl.currentLevel - 1
 		end
